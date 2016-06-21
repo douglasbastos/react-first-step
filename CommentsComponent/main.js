@@ -53,7 +53,8 @@ var CommentForm = React.createClass({
             return;
         }
 
-        // TODO: Precisa atualizar o DATA
+        this.props.onCommentSubmit({author: author, text: text});
+
         this.refs.author.value = '';
         this.refs.text.value = '';
         return;
@@ -77,6 +78,10 @@ var CommentForm = React.createClass({
 });
 
 var CommentBox = React.createClass({
+    handleCommentSubmit: function(comment){
+        this.props.data.push(comment);
+        console.log(this.props.data);
+    },
     render: function(){
         return (
             <div className='commentBox'>
@@ -84,7 +89,7 @@ var CommentBox = React.createClass({
                     <CommentList data={this.props.data} />
                 </Panel>
                 <Panel title='Add a Comment'>
-                    <CommentForm />
+                    <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
                 </Panel>
             </div>
         );
